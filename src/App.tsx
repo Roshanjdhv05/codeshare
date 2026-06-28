@@ -22,7 +22,7 @@ import PublicFolderDetail from './pages/PublicFolderDetail';
 import About from './pages/About';
 import Friends from './pages/Friends';
 import Chat from './pages/Chat';
-import Compiler from './pages/Compiler';
+
 import ToastContainer from './components/ToastContainer';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
@@ -104,7 +104,7 @@ const AppContent: React.FC = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/compiler" element={<Compiler />} />
+
         </Routes>
       </Layout>
     </Router>

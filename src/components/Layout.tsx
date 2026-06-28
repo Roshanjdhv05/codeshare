@@ -40,7 +40,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         //  { name: 'Friends', path: '/friends' },
         //  { name: 'Chat', path: '/chat' },
           { name: 'Explore', path: '/explore' },
-          { name: 'Compiler', path: '/compiler' },
           { name: 'My Profile', path: '/my-profile' },
         ]
       : []),
