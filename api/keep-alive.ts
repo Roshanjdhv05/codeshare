@@ -42,18 +42,23 @@ import { createClient } from '@supabase/supabase-js';
 // ---------------------------------------------------------------------------
 
 function createAdminClient() {
-  const url = process.env.SUPABASE_URL;
+  // Prefer the server-only SUPABASE_URL; fall back to the already-deployed
+  // VITE_SUPABASE_URL if the dedicated variable hasn't been added yet.
+  const url =
+    process.env.SUPABASE_URL ||
+    process.env.VITE_SUPABASE_URL;
+
   const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!url || !serviceRoleKey) {
     throw new Error(
-      'Missing required environment variables: SUPABASE_URL and/or SUPABASE_SERVICE_ROLE_KEY'
+      'Missing required environment variables: ' +
+      '(SUPABASE_URL or VITE_SUPABASE_URL) and/or SUPABASE_SERVICE_ROLE_KEY'
     );
   }
 
   return createClient(url, serviceRoleKey, {
     auth: {
-      // Server-side client — no session persistence needed.
       persistSession: false,
       autoRefreshToken: false,
     },
