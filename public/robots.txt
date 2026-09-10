@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Allow: /explore
+Allow: /about
+Allow: /profile/*
+Disallow: /dashboard
+Disallow: /my-profile
+Disallow: /chat
+Disallow: /friends
+
+Sitemap: https://codeshare-rn.vercel.app/sitemap.xml
