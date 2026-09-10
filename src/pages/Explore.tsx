@@ -318,12 +318,17 @@ const Explore: React.FC = () => {
           )}
         </>
       ) : (
-        <div className="text-center py-16">
-          <Users className="h-16 w-16 mx-auto text-blue-800 mb-4" />
+        <div className="text-center py-12 text-gray-400 bg-blue-950/20 border border-blue-900/40 rounded-xl p-8 max-w-2xl mx-auto">
+          <Users className="h-14 w-14 mx-auto text-blue-500 mb-3" />
           <h3 className="text-xl font-semibold text-white mb-2">No developers found</h3>
-          <p className="text-blue-400">
-            {searchTerm ? 'Try adjusting your search terms.' : 'No users to display at the moment.'}
+          <p className="text-sm text-blue-300 mb-4">
+            {searchTerm ? 'Try adjusting your search terms.' : 'No developer profiles returned from Supabase database.'}
           </p>
+          <div className="text-xs bg-black/40 p-4 rounded-lg text-left text-blue-200 space-y-2 border border-blue-800/30">
+            <p className="font-bold text-yellow-400">💡 Checklist for Vercel & Supabase Data:</p>
+            <p>1. <strong>Trigger Redeploy on Vercel:</strong> Go to Vercel → Deployments → Click <em>Redeploy</em> (so Vite bakes the saved env vars into the build).</p>
+            <p>2. <strong>Supabase Seed Users:</strong> Run <code className="text-blue-300 font-mono">seed_indian_users.sql</code> in your Supabase SQL Editor if you haven't inserted initial users yet.</p>
+          </div>
         </div>
       )}
     </div>

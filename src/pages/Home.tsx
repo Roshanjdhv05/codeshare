@@ -261,9 +261,18 @@ const Home: React.FC = () => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 text-gray-400">
-          <p className="text-lg">No snippets found</p>
-          <p className="text-sm">Try adjusting your search or filters</p>
+        <div className="text-center py-12 text-gray-400 bg-blue-950/20 border border-blue-900/40 rounded-xl p-8 max-w-2xl mx-auto">
+          <p className="text-xl font-semibold text-white mb-2">No code snippets found</p>
+          <p className="text-sm text-blue-300 mb-4">
+            {searchTerm || selectedCategory || selectedLanguage
+              ? 'Try adjusting your search terms or filters.'
+              : 'If you have deployed to Vercel, ensure you clicked "Redeploy" after adding environment variables.'}
+          </p>
+          <div className="text-xs bg-black/40 p-4 rounded-lg text-left text-blue-200 space-y-2 border border-blue-800/30">
+            <p className="font-bold text-yellow-400">💡 Checklist for Vercel Data Loading:</p>
+            <p>1. <strong>Redeploy on Vercel:</strong> In Vercel Dashboard → Deployments → Click <em>Redeploy</em> (Vite bakes env vars into JavaScript at build time).</p>
+            <p>2. <strong>Supabase Seed Data:</strong> Run <code className="text-blue-300 font-mono">full_schema.sql</code> & seed scripts in your Supabase SQL Editor if your database is empty.</p>
+          </div>
         </div>
       )}
 
