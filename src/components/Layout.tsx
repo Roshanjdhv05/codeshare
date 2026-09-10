@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Code, LogOut, Menu, X } from 'lucide-react'
+import { Code, Download, LogOut, Menu, X } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
 import { useChat } from '../contexts/ChatContext'
 import NotificationsDropdown from './NotificationsDropdown'
+import { usePWAInstall } from '../hooks/usePWAInstall'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -14,6 +15,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { unreadCount } = useChat()
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const { canShow, installState, install } = usePWAInstall()
 
   const handleSignOut = async () => {
     try {
@@ -110,9 +112,41 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               </button>
             )}
 
+            {/* ── PWA Install Button (mobile sidebar only) ── */}
+            {canShow && (
+              <button
+                id="pwa-sidebar-install-btn"
+                onClick={async () => { await install(); setSidebarOpen(false); }}
+                disabled={installState === 'installing'}
+                className="mt-4 flex items-center gap-2 px-4 py-2.5 rounded-xl border
+                  border-blue-400/40 bg-blue-500/10 text-blue-300
+                  hover:bg-blue-500/20 hover:border-blue-400/70 hover:text-blue-200
+                  transition-all duration-200 text-sm font-medium w-full"
+                style={{
+                  boxShadow: '0 0 12px rgba(58,190,255,0.15)',
+                }}
+              >
+                <Download className="h-4 w-4 flex-shrink-0" />
+                <span>
+                  {installState === 'installing' ? 'Installing…' : 'Install App'}
+                </span>
+                {/* <CS> mini badge */}
+                <span
+                  className="ml-auto text-[10px] font-bold tracking-tight"
+                  style={{
+                    fontFamily: "'Fira Code', monospace",
+                    color: 'rgba(58,190,255,0.7)',
+                    letterSpacing: '-0.3px',
+                  }}
+                >
+                  &lt;CS&gt;
+                </span>
+              </button>
+            )}
+
             {/* Auth Links (Visible in Sidebar for Mobile) */}
             {!user && (
-              <div className="mt-6 flex flex-col space-y-2 md:hidden">
+              <div className="mt-4 flex flex-col space-y-2 md:hidden">
                 <Link
                   to="/login"
                   onClick={() => setSidebarOpen(false)}

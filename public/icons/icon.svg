@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Background gradient -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0f1c"/>
+      <stop offset="100%" stop-color="#05070d"/>
+    </linearGradient>
+    <!-- Cyan glow filter -->
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Subtle radial glow behind text -->
+    <radialGradient id="halo" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#3abeff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#3abeff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Border gradient -->
+    <linearGradient id="border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3abeff" stop-opacity="0.6"/>
+      <stop offset="50%" stop-color="#3abeff" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#3abeff" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded square background -->
+  <rect width="512" height="512" rx="96" ry="96" fill="url(#bg)"/>
+
+  <!-- Subtle inner border glow -->
+  <rect x="2" y="2" width="508" height="508" rx="95" ry="95"
+        fill="none" stroke="url(#border)" stroke-width="2"/>
+
+  <!-- Radial halo behind text -->
+  <ellipse cx="256" cy="256" rx="220" ry="180" fill="url(#halo)"/>
+
+  <!-- Angle bracket < -->
+  <text
+    x="42"
+    y="318"
+    font-family="'Fira Code', 'Courier New', monospace"
+    font-size="188"
+    font-weight="700"
+    fill="#3abeff"
+    fill-opacity="0.75"
+    filter="url(#glow)"
+    letter-spacing="-4"
+  >&lt;</text>
+
+  <!-- CS — main text, larger and brighter -->
+  <text
+    x="132"
+    y="320"
+    font-family="'Fira Code', 'Courier New', monospace"
+    font-size="210"
+    font-weight="800"
+    fill="#ffffff"
+    filter="url(#glow)"
+    letter-spacing="-8"
+  >CS</text>
+
+  <!-- Angle bracket > -->
+  <text
+    x="376"
+    y="318"
+    font-family="'Fira Code', 'Courier New', monospace"
+    font-size="188"
+    font-weight="700"
+    fill="#3abeff"
+    fill-opacity="0.75"
+    filter="url(#glow)"
+    letter-spacing="-4"
+  >&gt;</text>
+
+  <!-- Thin decorative bottom line -->
+  <line x1="80" y1="360" x2="432" y2="360"
+        stroke="#3abeff" stroke-width="2" stroke-opacity="0.25"
+        stroke-linecap="round"/>
+
+  <!-- Tagline -->
+  <text
+    x="256"
+    y="400"
+    font-family="'Fira Code', 'Courier New', monospace"
+    font-size="30"
+    font-weight="400"
+    fill="#3abeff"
+    fill-opacity="0.55"
+    text-anchor="middle"
+    letter-spacing="6"
+  >CODESHARE</text>
+</svg>

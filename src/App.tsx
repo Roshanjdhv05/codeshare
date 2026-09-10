@@ -24,6 +24,7 @@ import Friends from './pages/Friends';
 import Chat from './pages/Chat';
 
 import ToastContainer from './components/ToastContainer';
+import PWAInstallPrompt from './components/PWAInstallPrompt';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({
   children,
@@ -119,6 +120,7 @@ function App() {
           <ChatProvider>
             <AppContent />
             <ToastContainer />
+            <PWAInstallPrompt />
           </ChatProvider>
         </SnippetProvider>
       </ToastProvider>
