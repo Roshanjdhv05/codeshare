@@ -22,6 +22,8 @@ import PublicFolderDetail from './pages/PublicFolderDetail';
 import About from './pages/About';
 import Friends from './pages/Friends';
 import Chat from './pages/Chat';
+import Community from './pages/Community';
+import CommunityChat from './pages/CommunityChat';
 
 import ToastContainer from './components/ToastContainer';
 import PWAInstallPrompt from './components/PWAInstallPrompt';
@@ -102,6 +104,22 @@ const AppContent: React.FC = () => {
             element={
               <ProtectedRoute>
                 <Chat />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/community"
+            element={
+              <ProtectedRoute>
+                <Community />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/community/chat/:communityId"
+            element={
+              <ProtectedRoute>
+                <CommunityChat />
               </ProtectedRoute>
             }
           />

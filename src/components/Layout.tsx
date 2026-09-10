@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Code, Download, LogOut, Menu, X } from 'lucide-react'
 import { useAuth } from '../contexts/AuthContext'
-import { useChat } from '../contexts/ChatContext'
 import NotificationsDropdown from './NotificationsDropdown'
 import { usePWAInstall } from '../hooks/usePWAInstall'
 
@@ -12,7 +11,6 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { user, signOut } = useAuth()
-  const { unreadCount } = useChat()
   const location = useLocation()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { canShow, installState, install } = usePWAInstall()
@@ -39,6 +37,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     ...(user
       ? [
           { name: 'Dashboard', path: '/dashboard' },
+          { name: 'Community', path: '/community' },
         //  { name: 'Friends', path: '/friends' },
         //  { name: 'Chat', path: '/chat' },
           { name: 'Explore', path: '/explore' },

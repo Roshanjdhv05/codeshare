@@ -41,7 +41,11 @@ export const useTheme = () => {
 
   const applyTheme = (newTheme: Theme) => {
     if (typeof document !== 'undefined') {
-      document.documentElement.classList.add('dark')
+      if (newTheme === 'dark') {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
     }
 
     if (typeof window !== 'undefined') {

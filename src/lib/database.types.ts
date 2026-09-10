@@ -498,6 +498,116 @@ export interface Database {
           created_at?: string
         }
       }
+      follows: {
+        Row: {
+          id: string
+          follower_id: string
+          following_id: string
+          status: 'pending' | 'accepted' | 'rejected'
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          follower_id: string
+          following_id: string
+          status?: 'pending' | 'accepted' | 'rejected'
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          follower_id?: string
+          following_id?: string
+          status?: 'pending' | 'accepted' | 'rejected'
+          created_at?: string
+        }
+      }
+      communities: {
+        Row: {
+          id: string
+          name: string
+          description: string
+          is_private: boolean
+          icon: string
+          owner_id: string
+          member_count: number
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          description?: string
+          is_private?: boolean
+          icon?: string
+          owner_id: string
+          member_count?: number
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          description?: string
+          is_private?: boolean
+          icon?: string
+          owner_id?: string
+          member_count?: number
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      community_members: {
+        Row: {
+          id: string
+          community_id: string
+          user_id: string
+          role: 'owner' | 'admin' | 'member'
+          status: 'pending' | 'accepted' | 'invited'
+          invited_by: string | null
+          joined_at: string
+        }
+        Insert: {
+          id?: string
+          community_id: string
+          user_id: string
+          role?: 'owner' | 'admin' | 'member'
+          status?: 'pending' | 'accepted' | 'invited'
+          invited_by?: string | null
+          joined_at?: string
+        }
+        Update: {
+          id?: string
+          community_id?: string
+          user_id?: string
+          role?: 'owner' | 'admin' | 'member'
+          status?: 'pending' | 'accepted' | 'invited'
+          invited_by?: string | null
+          joined_at?: string
+        }
+      }
+      community_messages: {
+        Row: {
+          id: string
+          community_id: string
+          sender_id: string
+          content: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          community_id: string
+          sender_id: string
+          content: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          community_id?: string
+          sender_id?: string
+          content?: string
+          created_at?: string
+        }
+      }
     }
     Views: {
       [_ in never]: never

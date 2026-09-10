@@ -1,11 +1,12 @@
- import React, { useState, useEffect } from 'react'
-import { Plus, Search, Folder, Calendar, Tag, Trash2, FileText, Download, Lock, Globe, Code2, Eye, Heart, Edit, Users, UserMinus, Bookmark } from 'lucide-react'
+import React, { useState, useEffect } from 'react'
+import { Plus, Search, Folder, Calendar, Tag, Trash2, FileText, Download, Lock, Globe, Code2, Eye, Heart, Edit, Bookmark } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { Database } from '../lib/database.types'
 import { useAuth } from '../contexts/AuthContext'
 import { formatDistanceToNow } from '../utils/dateUtils'
 import { Link } from 'react-router-dom'
 import CreateFolderModal from '../components/CreateFolderModal'
+import EditFolderModal from '../components/EditFolderModal'
 import EditSnippetModal from '../components/EditSnippetModal'
 import FollowersModal from '../components/FollowersModal'
 import CodeCard from '../components/CodeCard'
@@ -116,12 +117,12 @@ const MyProfile: React.FC = () => {
     if (!user) return
 
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .rpc('get_user_stats', { user_uuid: user.id })
 
       if (error) {
         console.error('Error fetching user stats:', error)
-      } else if (data && data.length > 0) {
+      } else if (Array.isArray(data) && data.length > 0) {
         setStats(data[0])
       }
     } catch (error) {
@@ -190,7 +191,7 @@ const MyProfile: React.FC = () => {
 
     setIsSearching(true)
     try {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .rpc('search_user_files', {
           search_user_id: user.id,
           search_term: searchTerm.trim()
@@ -321,7 +322,7 @@ const MyProfile: React.FC = () => {
       const { data: files, error } = await supabase
         .from('user_files')
         .select('*')
-        .eq('folder_id', folderId)
+        .eq('folder_id', folderId) as { data: { filename: string; extension: string; code_content: string }[] | null; error: any }
 
       if (error) {
         console.error('Error fetching files for download:', error)
@@ -331,6 +332,8 @@ const MyProfile: React.FC = () => {
       // Create a simple text-based "ZIP" content
       let zipContent = `# ${folderName} - Exported Files\n\n`
       
+      if (!files) return
+
       files.forEach(file => {
         zipContent += `## ${file.filename}\n`
         zipContent += `\`\`\`${file.extension}\n`
@@ -586,7 +589,7 @@ const MyProfile: React.FC = () => {
                     key={save.id}
                     snippet={snippet}
                     showSaveButton={true}
-                    onLike={user ? async (snippetId: string) => {
+                    onLike={user ? async (_snippetId: string) => {
                       // Like functionality handled in CodeCard
                     } : undefined}
                   />
@@ -732,7 +735,7 @@ const MyProfile: React.FC = () => {
                           <Edit className="h-4 w-4" />
                         </button>
                         <button
-                          onClick={() => downloadFolder(folder.id, folder_name)}
+                          onClick={() => downloadFolder(folder.id, folder.folder_name)}
                           className="p-1 text-gray-400 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                           title="Download folder"
                         >
